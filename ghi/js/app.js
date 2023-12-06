@@ -16,6 +16,14 @@ function createCard(name, description, pictureUrl, startDate, endDate, location)
 }
 
 
+function createAlert(alertType, message) {
+    return `
+    <div class="alert alert-${alertType}" role="alert">
+    ${message}
+    </div>
+    `;
+}
+
 
 window.addEventListener('DOMContentLoaded', async () => {
 
@@ -25,7 +33,16 @@ window.addEventListener('DOMContentLoaded', async () => {
         const response = await fetch(url);
 
         if (!response.ok) {
-            throw new Error('Something went wrong');
+            // throw new Error('Something went wrong');
+            const error = response.status;
+            const message = `Warning: Response not OK: Status ${error}`;
+            const alertType = 'warning';
+            const alertHtml = createAlert(alertType, message);
+            const alertDiv = document.getElementById('alert-div');
+            alertDiv.innerHTML = alertHtml;
+
+
+
         } else {
             const data = await response.json();
 
@@ -66,6 +83,13 @@ window.addEventListener('DOMContentLoaded', async () => {
         }
     } catch (err) {
         console.error('ERROR: ', err);
+
+        const alertType = 'danger';
+        const message = 'Fetched promise object failed to resolve';
+        const dangerHtml = createAlert(alertType, message);
+        const alertDiv = document.getElementById('alert-div');
+        alertDiv.innerHTML = dangerHtml;
+
     }
 
 
