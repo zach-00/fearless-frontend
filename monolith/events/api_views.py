@@ -76,7 +76,7 @@ def api_list_conferences(request):
             {"conferences": conferences},
             encoder=ConferenceListEncoder,
         )
-    else:
+    else: # POST
         content = json.loads(request.body)
 
         # Get the Location object and put it in the content dict
