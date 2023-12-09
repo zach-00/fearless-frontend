@@ -24,7 +24,7 @@ window.addEventListener('DOMContentLoaded', async () => {
             event.preventDefault();
 
             const formData = new FormData(formTag);
-            const json = JSON.stringify(Object.fromEntries(formData));
+            const json = JSON.stringify(Object.fromEntries(formData)); // formData is an array like iterable of name-value pairs. Object.fromEntries takes values form an array and turns them into an object. Then JSON.stringify() stringifies that object into a JSON object
 
             const locationUrl = 'http://localhost:8000/api/locations/';
             const fetchConfig = {

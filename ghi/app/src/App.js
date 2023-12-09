@@ -10,7 +10,7 @@ function App(props) {
     <>
     <Nav />
     <div className="container">
-    <LocationForm />
+    {/* <LocationForm /> */}
     {/* <AttendeesList attendees={props.attendees}/> */}
 
     </div>
