@@ -1,25 +1,11 @@
 import React, {useEffect, useState } from 'react';
 
-function AttendConferenceForm() {
+function AttendConferenceForm({ getAttendees, conferences }) {
 
   const [conference, setConference] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [conferences, setConferences] = useState([]);
   const [hasSignedUp, setHasSignedUp] = useState(false);
-
-  const fetchData = async () => {
-    const url = 'http://localhost:8000/api/conferences/';
-    const response = await fetch(url);
-    if (response.ok) {
-      const data = await response.json();
-      setConferences(data.conferences);
-    }
-  }
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -42,6 +28,7 @@ function AttendConferenceForm() {
       setName('');
       setEmail('');
       setHasSignedUp(true);
+      getAttendees();
     }
   }
 

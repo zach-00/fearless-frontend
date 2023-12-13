@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function PresentationForm() {
+function PresentationForm({ conferences }) {
 
     const [ presenterName, setPresenterName ] = useState('');
 
@@ -11,8 +11,6 @@ function PresentationForm() {
     const [ title, setTitle ] = useState('');
 
     const [ synopsis, setSynopsis ] = useState('');
-
-    const [ conferences, setConferences ] = useState([]);
 
     const [ conference, setConference ] = useState('');
 
@@ -85,23 +83,6 @@ function PresentationForm() {
         }
     }
 
-
-    const fetchData = async () => {
-        const url = 'http://localhost:8000/api/conferences/';
-
-        const response = await fetch(url);
-        if (response.ok) {
-            const data = await response.json();
-            console.log(data);
-            setConferences(data.conferences);
-        }
-        console.log(conferences);
-    }
-
-    useEffect(() => {
-        fetchData();
-    }, []);
-
     return (
         <div className="row">
         <div className="offset-3 col-6">
@@ -110,28 +91,28 @@ function PresentationForm() {
             <form onSubmit={handleSubmit} id="create-presentation-form">
 
               <div className="form-floating mb-3">
-                <input onChange={handlePresenterNameChange} placeholder="presenter name" required type="text" name="presenter_name" id="presenter_name" className="form-control"/>
-                <label htmlFor="name">Presenter name</label>
+                <input onChange={handlePresenterNameChange} placeholder="presenter name" required value={presenterName} type="text" name="presenter_name" id="presenter_name" className="form-control"/>
+                <label htmlFor="presenter_name">Presenter name</label>
               </div>
 
               <div className="form-floating mb-3">
-                <input onChange={handlePresenterEmailChange} placeholder="presenter_email" required type="email" name="presenter_email" id="presenter_email" className="form-control"/>
-                <label htmlFor="ends">Presenter Email</label>
+                <input onChange={handlePresenterEmailChange} placeholder="presenter_email" required type="email" value={presenterEmail} name="presenter_email" id="presenter_email" className="form-control"/>
+                <label htmlFor="presenter_email">Presenter Email</label>
               </div>
 
               <div className="form-floating mb-3">
-                <input onChange={handleCompanyNameChange} placeholder="company_name" required type="text" name="company_name" id="company_name" className="form-control"/>
-                <label htmlFor="starts">Company Name</label>
+                <input onChange={handleCompanyNameChange} placeholder="company_name" required type="text" value={companyName} name="company_name" id="company_name" className="form-control"/>
+                <label htmlFor="company_name">Company Name</label>
               </div>
 
               <div className="form-floating mb-3">
-                <input onChange={handleTitleChange} placeholder="title" required type="text" name="title" id="title" className="form-control"/>
+                <input onChange={handleTitleChange} placeholder="title" required value={title} type="text" name="title" id="title" className="form-control"/>
                 <label htmlFor="title">Title</label>
               </div>
 
               <div className="mb-3">
                 <label htmlFor="synopsis" className="form-label">Synopsis</label>
-                <textarea onChange={handleSynopsisChange} required name="synopsis" id="synopsis" rows="5" cols="33" className="form-control"></textarea>
+                <textarea onChange={handleSynopsisChange} required name="synopsis" id="synopsis" value={synopsis} rows="5" cols="33" className="form-control"></textarea>
               </div>
 
               <select onChange={handleConferenceChange} required name="conference" id="conference" value={conference} className="form-select">
